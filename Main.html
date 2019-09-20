@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>Fernando's Columns</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="columns.js"></script>
-    </head>
-    <body>
-        <div id="board">
-            <script>columns.drawBoard('#board');</script>
-        </div>
-    </body>
+	<head>
+		<title>Fernando's Columns</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet'>
+		<link rel="stylesheet" href="styles.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="columns.js"></script>
+	</head>
+	<body>
+		<div id='level'>
+			LEVEL<br><br>
+			<span>10</span>
+		</div>
+
+		<div id='instructions'>
+			Game instructions:<br><br>
+			Use <i class="fa fa-caret-square-o-left"></i> and <i class="fa fa-caret-square-o-right"></i> to move block.<br>
+			Use <i class="fa fa-caret-square-o-up"></i> to rotate colors.<br>
+			Use <i class="fa fa-caret-square-o-down"></i> to accelerate block.<br>
+			[SPACE] to drop block.<br>
+			[P] to pause game.
+		</div>
+
+		<div id='board'>
+			<script>columns.drawBoard('#board');</script>
+		</div>
+
+		<div id='score'>
+			SCORE<br><br>
+			<span>0</span>
+		</div>
+	</body>
 </html>

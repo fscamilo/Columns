@@ -1,8 +1,42 @@
 * {box-sizing: border-box; margin: 0px;}
-body {background: #394d71;}
+
+body {
+    background: #394d71;
+    font-family: 'Aldrich';font-size: 22px;
+}
+
+#level, #score {
+    width: 336px;
+    position: absolute;
+    top: 15%;
+    left: 7%;
+    color: white;
+    background-color: black;
+    text-align: center;
+    border: 3px solid;
+    border-color: #27354e #5471a6 #5471a6 #27354e;
+    padding: 10px;
+}
+
+#level span, #score span {
+    font-size: 60px;
+}
+
+#instructions {
+    width: 336px;
+    position: absolute;
+    top: 55%;
+    left: 7%;
+    color: yellowgreen;
+    border: 3px solid;
+    border-color: #27354e #5471a6 #5471a6 #27354e;
+    padding: 10px;
+}
 
 #board {
     background: black;
+    border: 3px solid;
+    border-color: #27354e #5471a6 #5471a6 #27354e;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -12,6 +46,10 @@ body {background: #394d71;}
     display: grid;
     grid-template-columns: repeat(9, auto);
     overflow: hidden;
+}
+
+#score {
+    left: 70%;
 }
 
 .block{
