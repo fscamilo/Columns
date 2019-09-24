@@ -1,8 +1,11 @@
 "use strict";
 const col=9, line=16, empty="rgb(0, 0, 0)";
+let paused = false;
+let speed = 800;
 let color = (x, y) => $('#'+x+'_'+y).css('background-color');
 let changeColor = (x, y, newColor) => $('#'+x+'_'+y).css('background-color', newColor); //.addClass('filled');
 let removeColor = (x, y) => $('#'+x+'_'+y).css('background-color', empty).removeClass('filled');
+var timer = setInterval(gameTimer, speed);
 
 // ------- gameBoard -------
 const columns = {
@@ -10,7 +13,6 @@ const columns = {
 	colors: ['red', 'green', 'blue', 'yellow', 'purple'],
 	curX: 4,
 	curY: 2,
-	speed: 800,
 	score: 0,
 	level: 1,
 	
@@ -146,45 +148,59 @@ $(document).ready(function() {
 
 	columns.drawBlock();
 
-	$(document).keydown(function(e) {
+	$(this).keydown(function(e) {
 		switch(e.keyCode){
+			case 80:
+			case 112:
+				paused = !paused;
+				$('#pause').toggle();
+				if(paused){
+					clearInterval(timer);
+				}else{
+					timer = setInterval(gameTimer, speed);
+				}
+				break;
 			case 32:
-				columns.dropBlocks();
+				if(!paused) columns.dropBlocks();
 				break;
 			case 37:
-				columns.goLeft();
+				if(!paused) columns.goLeft();
 				break;
 			case 38:
-				columns.rotateBlocks();
+				if(!paused) columns.rotateBlocks();
 				break;
 			case 39:
-				columns.goRight();
+				if(!paused) columns.goRight();
 				break;
 			case 40:
-				columns.goDown();
+				if(!paused) columns.goDown();
 				break;
 		}
 	});
-
-	var timer = setInterval(function() {
-		if(color(columns.curX, columns.curY+1) == empty && columns.curY < line-2) {
-			columns.goDown();
-		}else{
-			if(columns.curY <=3){
-				$(document).off('keydown');
-				console.log("GAME OVER!!!");
-				clearInterval(timer);
-			}else{
-				for(let i=0; i<3; i++){
-					$('#'+columns.curX+'_'+(columns.curY-i)).addClass('filled');
-				}
-				columns.checkBoard();
-				$('#score span').html(columns.score);
-				columns.level = parseInt(columns.score / 100) + 1;
-				$('#level span').html(columns.level);
-				columns.drawBlock();
-			}
-		}
-	}, columns.speed);
-
 });
+
+function gameTimer() {
+	if(color(columns.curX, columns.curY+1) == empty && columns.curY < line-2) {
+		columns.goDown();
+	}else{
+		if(columns.curY <=3){
+			$(document).off('keydown');
+			$('#over').show();
+			clearInterval(timer);
+		}else{
+			for(let i=0; i<3; i++){
+				$('#'+columns.curX+'_'+(columns.curY-i)).addClass('filled');
+			}
+			columns.checkBoard();
+			$('#score span').html(columns.score);
+			columns.level = parseInt(columns.score / 100) + 1;
+			$('#level span').html(columns.level);
+			speed = 800 - 50 * (columns.level - 1);
+			clearInterval(timer);
+			timer = setInterval(gameTimer, speed);
+			columns.drawBlock();
+			console.log(speed);
+		}
+	}
+}
+
