@@ -110,7 +110,7 @@ const columns = {
 		});
 	},
 
-	clearBoard: function() {
+	clearBoard: async function() {
 		let hasDead = false;
 		$('.dead').each(function(){
 			hasDead = true;
@@ -120,7 +120,7 @@ const columns = {
 		});
 		
 		if(hasDead){
-			this.gravity();
+			await this.gravity();
 			this.checkBoard();
 		}
 	},
